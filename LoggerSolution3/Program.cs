@@ -5,10 +5,23 @@
         static void Main(string[] args)
         {
             int count = 0;
-            string path = @"../Test";
+            string pathFolder = @"../Test";
             Console.WriteLine(Directory.GetCurrentDirectory());
-            Logger logger = new Logger(path);
+            DateTime dateTime = DateTime.Now;
+            Logger logger = new Logger(pathFolder,dateTime);
             
+            Thread thread = new Thread(() =>
+            {
+                logger.Log();
+            });
+            thread.Start();
+            while (count < 1000)
+            {
+                Console.WriteLine("Программа работает");
+                
+                Thread.Sleep(TimeSpan.FromSeconds(30));
+            }
+
         }
     }
 }
